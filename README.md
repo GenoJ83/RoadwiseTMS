@@ -69,3 +69,19 @@ A complete Intelligent Traffic Management System for T-junctions with Arduino in
 - Arduino Uno: USB or barrel jack
 - NodeMCU: USB or stable 3.3V supply (not Arduino 3.3V pin)
 
+## Software Setup
+
+### 1. Frontend (Web App)
+- Located in `web/roadwise-tms/`
+- Sends HTTP POST to NodeMCU at `/setlights` with format: `DIRECTION:COLOR:VEHICLES:CYCLISTS` or `ALL:RED`
+- Both manual and automatic modes supported
+
+### 2. NodeMCU (ESP8266)
+- Receives HTTP POST at `/setlights`
+- Relays command to Arduino Uno via Serial (9600 baud)
+
+### 3. Arduino Uno
+- Receives serial commands, parses, and updates LEDs and LCD
+- Handles `ALL:RED` for emergency mode
+- LCD always shows the latest direction and status
+
