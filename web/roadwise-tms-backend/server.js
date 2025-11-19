@@ -33,7 +33,7 @@ let stateTimer = null;
 
 function getAdaptiveGreenTime(direction) {
   //Integrate real sensor data for adaptive timing
-  return 30; // Default 30s for now
+  return 30; // Default 30s 
 }
 
 function nextDirection(current) {
