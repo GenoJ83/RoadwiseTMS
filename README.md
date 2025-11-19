@@ -85,3 +85,51 @@ A complete Intelligent Traffic Management System for T-junctions with Arduino in
 - Handles `ALL:RED` for emergency mode
 - LCD always shows the latest direction and status
 
+## Example Command Flow
+
+- Web App: `POST http://192.168.16.83/setlights` with body `NORTH:GREEN:12:2`
+- NodeMCU: Relays `NORTH:GREEN:12:2` to Arduino Uno via Serial
+- Arduino Uno: Turns on North Green LED, updates LCD with direction and vehicle/cyclist count
+
+## Usage
+
+- Use the web app dashboard for real-time and manual control
+- Emergency mode sets all lights to red
+- LCD displays the current direction and status
+
+## Project Structure
+
+```
+web/
+├── roadwise-tms/          # Frontend (React + Vite)
+│   ├── src/
+│   │   ├── components/    # React components
+│   │   ├── pages/         # Page components
+│   │   └── services/      # API and Firebase services
+│   └── package.json
+└── roadwise-tms-backend/  # Backend (Node.js + Express)
+    ├── config/            # Firebase configuration
+    ├── routes/            # API routes
+    └── server.js          # Main server file
+```
+
+## Technologies Used
+
+- **Frontend**: React, Vite, Tailwind CSS, React Router
+- **Backend**: Node.js, Express, Firebase Admin SDK
+- **Database**: Firebase Firestore
+- **Authentication**: Firebase Auth
+- **WiFi Bridge**: NodeMCU ESP8266
+- **Hardware**: Arduino Uno, 16x2 LCD (parallel), LEDs
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is licensed under the ISC License. 
