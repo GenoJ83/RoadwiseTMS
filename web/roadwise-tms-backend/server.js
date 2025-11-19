@@ -43,7 +43,7 @@ function nextDirection(current) {
 
 function advanceState() {
   if (trafficState.override) {
-    // If override is set, use it once and clear
+    // If override is set,use it once and clear
     trafficState = {
       ...trafficState,
       ...trafficState.override,
