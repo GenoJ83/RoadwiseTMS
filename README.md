@@ -29,3 +29,43 @@ A complete Intelligent Traffic Management System for T-junctions with Arduino in
     | \-- [Traffic Light LEDs (4 per direction)]
 ```
 
+## Hardware Setup
+
+### 1. **Wiring: NodeMCU (ESP8266) ↔ Arduino Uno**
+
+| Arduino Uno | NodeMCU (ESP8266) | Notes                                 |
+|-------------|-------------------|---------------------------------------|
+| TX (D1)     | RX (D7/GPIO13)    | Use voltage divider (1kΩ/2kΩ)         |
+| RX (D0)     | TX (D8/GPIO15)    | Direct (3.3V safe for Arduino)        |
+| GND         | GND               | Common ground                         |
+
+**Voltage Divider for Arduino TX → ESP8266 RX:**
+- Arduino TX → 1kΩ → NodeMCU RX
+- NodeMCU RX → 2kΩ → GND
+- NodeMCU RX also connects to the junction between the two resistors
+
+### 2. **Wiring: 16x2 Parallel LCD to Arduino Uno**
+
+| LCD Pin | Arduino Uno Pin |
+|---------|-----------------|
+| RS      | A0              |
+| E       | A1              |
+| D4      | A2              |
+| D5      | A3              |
+| D6      | A4              |
+| D7      | A5              |
+| RW      | GND             |
+| VSS     | GND             |
+| VDD     | 5V              |
+| VO      | Potentiometer   |
+| A/K     | 5V/GND (backlight) |
+
+### 3. **Traffic Light LEDs**
+- North: 2, 3, 4, 5 (Red, Orange, Green, Blue)
+- East: 6, 7, 8, 9
+- South: 10, 11, 12, 13
+
+### 4. **Power**
+- Arduino Uno: USB or barrel jack
+- NodeMCU: USB or stable 3.3V supply (not Arduino 3.3V pin)
+
