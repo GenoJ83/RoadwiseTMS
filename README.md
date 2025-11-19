@@ -12,3 +12,20 @@ A complete Intelligent Traffic Management System for T-junctions with Arduino in
 - **Travel Recommendations**: AI-powered travel time predictions
 - **Real-time Monitoring**: Live status updates and alert logging
 
+## System Architecture
+
+```
+[Web App (React)]
+    |
+    |  (HTTP POST: DIRECTION:COLOR:VEHICLES:CYCLISTS)
+    v
+[NodeMCU ESP8266 WiFi Bridge]
+    |
+    |  (Serial, 9600 baud)
+    v
+[Arduino Uno]
+    |\
+    | \-- [16x2 LCD Parallel]
+    | \-- [Traffic Light LEDs (4 per direction)]
+```
+
