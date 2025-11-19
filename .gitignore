@@ -1,0 +1,18 @@
+# Ignore vehicle and cyclist image datasets
+Vehicles/
+Cyclists/data_tsinghua/images/
+
+# Ignore large files and folders
+vehicle_cyclist_classifier.pth
+ML model/vehicle_cyclist_classifier.pth
+ML model/yolov8n.pt
+ML model/Cyclists/data_tsinghua/images/
+ML model/Cyclists/data_tsinghua/labels/
+ML model/Vehicles/Cars.mp4
+ML model/Vehicles/cars.png
+ML model/Vehicles/bus.jpg
+ML model/Vehicles/cars.xml
+ML model/Vehicles/Bus_front.xml
+venv/
+.venv/
+node_modules/ 
