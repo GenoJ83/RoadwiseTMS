@@ -41,3 +41,15 @@ yolo_cyclist_classes = {'bicycle', 'motorcycle'}
 
 app = Flask(__name__)
 CORS(app)
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    file = request.files['image']
+    img_bytes = np.frombuffer(file.read(), np.uint8)
+    img = cv2.imdecode(img_bytes, cv2.IMREAD_COLOR)
+    img = cv2.resize(img, (224, 224))
+    img = torch.FloatTensor(img.transpose(2, 0, 1)).unsqueeze(0) / 255.0
+    with torch.no_grad():
+        output = model(img)
+        pred = int((output > 0.5).item())
+    return jsonify({'prediction': pred})  # 0=vehicle, 1=cyclist
