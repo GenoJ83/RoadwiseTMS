@@ -18,14 +18,13 @@ class CNN(nn.Module):
         self.relu = nn.ReLU()
         self.sigmoid = nn.Sigmoid()
 
-def forward(self, x):
+    def forward(self, x):
         x = self.pool(self.relu(self.conv1(x)))
         x = self.pool(self.relu(self.conv2(x)))
         x = x.view(-1, 32 * 54 * 54)
         x = self.relu(self.fc1(x))
         x = self.sigmoid(self.fc2(x))
         return x
-
 
 # Loading trained model
 model = CNN()
@@ -53,7 +52,6 @@ def predict():
         output = model(img)
         pred = int((output > 0.5).item())
     return jsonify({'prediction': pred})  # 0=vehicle, 1=cyclist
-
 
 @app.route('/detect-yolo', methods=['POST'])
 def detect_yolo():
