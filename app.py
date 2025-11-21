@@ -31,3 +31,13 @@ def forward(self, x):
 model = CNN()
 model.load_state_dict(torch.load('vehicle_cyclist_classifier.pth', map_location='cpu'))
 model.eval()
+
+# Loading YOLOv8 model for object detection
+yolo_model = YOLO('ML model/yolov8n.pt')
+
+# Defining vehicle and cyclist classes as per COCO dataset
+yolo_vehicle_classes = {'car', 'truck', 'bus'}
+yolo_cyclist_classes = {'bicycle', 'motorcycle'}
+
+app = Flask(__name__)
+CORS(app)
