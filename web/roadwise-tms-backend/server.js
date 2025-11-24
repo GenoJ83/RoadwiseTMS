@@ -87,7 +87,7 @@ function scheduleNextState() {
   stateTimer = setTimeout(advanceState, trafficState.countdown * 1000);
 }
 
-// Start the state machine
+// Starting the state machine
 scheduleNextState();
 
 // --- API Endpoints ---
