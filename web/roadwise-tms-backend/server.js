@@ -69,7 +69,7 @@ function advanceState() {
     } else if (trafficState.phase === 'RED') {
       // Move to next direction, decide if BLUE (cyclist) or GREEN
       const nextDir = nextDirection(trafficState.direction);
-      // TODO: Use sensor data to decide BLUE or GREEN
+      // Use sensor data to decide BLUE or GREEN
       trafficState = {
         ...trafficState,
         direction: nextDir,
