@@ -71,7 +71,11 @@ function advanceState() {
       const nextDir = nextDirection(trafficState.direction);
       // Use sensor data to decide BLUE or GREEN
       trafficState = {
-        
+        ...trafficState,
+        direction: nextDir,
+        phase: 'GREEN',
+        countdown: getAdaptiveGreenTime(nextDir),
+        lastUpdate: new Date(),
       };
     }
   }
