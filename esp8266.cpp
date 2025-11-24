@@ -2,9 +2,9 @@
 #include <ESP8266HTTPClient.h>
 #include <ArduinoJson.h>
 
-const char* ssid = "Norbort";
-const char* password = "@N0rb0rt";
-const char* backendUrl = "http://192.168.16.193:3001/api/command/traffic";
+const char* ssid = "";
+const char* password = "";
+const char* backendUrl = "";
 
 #define BAUD_RATE 115200
 
