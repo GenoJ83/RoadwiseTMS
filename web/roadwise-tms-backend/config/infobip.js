@@ -2,10 +2,10 @@ const https = require('follow-redirects').https;
 
 // Infobip configuration
 const INFOBIP_CONFIG = {
-    hostname: 'rpzr1p.api.infobip.com',
+    hostname: process.env.INFOBIP_BASE_URL || 'rpzr1p.api.infobip.com',
     path: '/sms/2/text/advanced',
     headers: {
-        'Authorization': 'App 335673a3ed72b450da7efa28c43bb50f-01bb1a8e-1c35-4030-9d89-6529a8c1b441',
+        'Authorization': `App ${process.env.INFOBIP_API_KEY}`,
         'Content-Type': 'application/json',
         'Accept': 'application/json'
     },
