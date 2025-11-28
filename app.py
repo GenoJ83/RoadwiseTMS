@@ -12,21 +12,6 @@ class CNN(nn.Module):
         super(CNN, self).__init__()
         self.conv1 = nn.Conv2d(3, 16, 3)
         self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(16, 32, 3)
-        self.fc1 = nn.Linear(32 * 54 * 54, 64)
-        self.fc2 = nn.Linear(64, 1)
-        self.relu = nn.ReLU()
-        self.sigmoid = nn.Sigmoid()
-
-    def forward(self, x):
-        x = self.pool(self.relu(self.conv1(x)))
-        x = self.pool(self.relu(self.conv2(x)))
-CORS(app)
-
-@app.route('/predict', methods=['POST'])
-def predict():
-    file = request.files['image']
-    img_bytes = np.frombuffer(file.read(), np.uint8)
     img = cv2.imdecode(img_bytes, cv2.IMREAD_COLOR)
     img = cv2.resize(img, (224, 224))
     img = torch.FloatTensor(img.transpose(2, 0, 1)).unsqueeze(0) / 255.0
