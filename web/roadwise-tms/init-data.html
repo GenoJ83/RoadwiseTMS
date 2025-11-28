@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoadWise TMS - Database Initialization</title>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js';
+        import { getFirestore, doc, setDoc } from 'https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js';
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDlFUFjlY7f_vl7Y-mif6o7yLRFnWpvmrM",
+            authDomain: "roadwise-tms.firebaseapp.com",
+            projectId: "roadwise-tms",
+            storageBucket: "roadwise-tms.firebasestorage.app",
+            messagingSenderId: "212769752315",
+            appId: "1:212769752315:web:70677465ff62ee951bdc5e",
+            measurementId: "G-TQW7B66HGD"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Sample data
+        const sampleData = {
+            north: {
+                junctionId: 'north',
+                name: 'North Junction - Main Street',
+                currentStatus: {
+                    flow: 75,
+                    congestion: 'medium',
+                    waitTime: 2,
+                    vehicles: 45,
+                    cyclists: 8,
+                    lastUpdated: new Date()
+                },
+                trafficLights: {
+                    north: { status: 'green', duration: 30, mode: 'auto' },
+                    east: { status: 'red', duration: 30, mode: 'auto' },
+                    south: { status: 'red', duration: 30, mode: 'auto' }
+                },
+                sensors: {
+                    vehicleCount: 45,
+                    cyclistCount: 8,
+                    pedestrianCount: 12,
+                    lastUpdated: new Date()
+                }
+            },
+            east: {
+                junctionId: 'east',
+                name: 'East Junction - Highway',
+                currentStatus: {
+                    flow: 60,
+                    congestion: 'low',
+                    waitTime: 1,
+                    vehicles: 30,
+                    cyclists: 5,
+                    lastUpdated: new Date()
+                },
+                trafficLights: {
+                    north: { status: 'red', duration: 30, mode: 'auto' },
+                    east: { status: 'green', duration: 30, mode: 'auto' },
+                    south: { status: 'red', duration: 30, mode: 'auto' }
+                },
+                sensors: {
+                    vehicleCount: 30,
+                    cyclistCount: 5,
+                    pedestrianCount: 8,
+                    lastUpdated: new Date()
+                }
+            },
+            south: {
+                junctionId: 'south',
+                name: 'South Junction - Downtown',
+                currentStatus: {
+                    flow: 90,
+                    congestion: 'high',
+                    waitTime: 5,
+                    vehicles: 60,
+                    cyclists: 12,
+                    lastUpdated: new Date()
+                },
+                trafficLights: {
+                    north: { status: 'red', duration: 30, mode: 'auto' },
+                    east: { status: 'red', duration: 30, mode: 'auto' },
+                    south: { status: 'green', duration: 30, mode: 'auto' }
+                },
+                sensors: {
+                    vehicleCount: 60,
+                    cyclistCount: 12,
+                    pedestrianCount: 25,
+                    lastUpdated: new Date()
+                }
+            }
+        };
+
+        window.initializeDatabase = async function() {
+            const statusDiv = document.getElementById('status');
+            const button = document.getElementById('initButton');
+            
+            try {
+                button.disabled = true;
+                button.textContent = 'Initializing...';
+                statusDiv.innerHTML = '<p>🚀 Starting database initialization...</p>';
+                
+                for (const [junctionId, data] of Object.entries(sampleData)) {
+                    await setDoc(doc(db, 'trafficData', junctionId), data);
+                    statusDiv.innerHTML += `<p>✅ Added traffic data for ${junctionId} junction</p>`;
+                }
+                
+                statusDiv.innerHTML += '<p>🎉 Database initialization completed successfully!</p>';
+                statusDiv.innerHTML += '<p>📋 Sample data includes:</p>';
+                statusDiv.innerHTML += '<ul>';
+                statusDiv.innerHTML += '<li>3 traffic junctions (North, East, South)</li>';
+                statusDiv.innerHTML += '<li>Real-time traffic status</li>';
+                statusDiv.innerHTML += '<li>Traffic light configurations</li>';
+                statusDiv.innerHTML += '<li>Sensor data</li>';
+                statusDiv.innerHTML += '</ul>';
+                
+                button.textContent = '✅ Completed';
+                
+            } catch (error) {
+                console.error('Error:', error);
+                statusDiv.innerHTML += `<p>❌ Error: ${error.message}</p>`;
+                button.disabled = false;
+                button.textContent = 'Try Again';
+            }
+        };
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2563eb;
+            text-align: center;
+        }
+        button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+        button:hover {
+            background-color: #1d4ed8;
+        }
+        button:disabled {
+            background-color: #6b7280;
+            cursor: not-allowed;
+        }
+        #status {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8fafc;
+            border-radius: 6px;
+            border-left: 4px solid #2563eb;
+        }
+        .warning {
+            background-color: #fef3c7;
+            border: 1px solid #f59e0b;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚦 RoadWise TMS Database Initialization</h1>
+        
+        <div class="warning">
+            <strong>⚠️ Important:</strong> Make sure you have:
+            <ul>
+                <li>Created the Firestore database in Firebase Console</li>
+                <li>Set up security rules (or temporarily allow all writes for testing)</li>
+                <li>Created the required indexes</li>
+            </ul>
+        </div>
+        
+        <p>This tool will initialize your Firestore database with sample traffic data for the RoadWise TMS application.</p>
+        
+        <button id="initButton" onclick="initializeDatabase()">
+            🚀 Initialize Database
+        </button>
+        
+        <div id="status">
+            <p>Click the button above to start database initialization.</p>
+        </div>
+    </div>
+</body>
+</html> 
