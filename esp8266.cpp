@@ -1,15 +1,3 @@
-#include <ESP8266WiFi.h>
-#include <ESP8266HTTPClient.h>
-#include <ArduinoJson.h>
-
-const char* ssid = "Promise";
-const char* password = "12345678";
-const char* backendUrl = "http://172.20.10.3:3001/api/command/traffic";
-
-#define BAUD_RATE 9600
-
-unsigned long lastPollTime = 0;
-const int POLL_INTERVAL = 2000;  // Polling every 2 seconds
 unsigned long lastWiFiCheck = 0;
 const int WIFI_CHECK_INTERVAL = 5000;  // Checking WiFi every 5 seconds
 int failedRequests = 0;
