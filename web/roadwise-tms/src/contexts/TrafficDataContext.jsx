@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect, useRef } from 'r
 import { trafficDataSync, autoSyncConfig } from '../services/trafficDataSync';
 import { trafficStateService } from '../services/apiService';
 
-// Create Traffic Data Context
+// Creating Traffic Data Context
 const TrafficDataContext = createContext();
 
 // Traffic Data Provider Component
