@@ -6,7 +6,7 @@ const char* ssid = "Promise";
 const char* password = "12345678";
 const char* backendUrl = "http://172.20.10.3:3001/api/command/traffic";
 
-#define BAUD_RATE 115200
+#define BAUD_RATE 9600
 
 unsigned long lastPollTime = 0;
 const int POLL_INTERVAL = 2000;  // Polling every 2 seconds

@@ -21,24 +21,6 @@ class CNN(nn.Module):
     def forward(self, x):
         x = self.pool(self.relu(self.conv1(x)))
         x = self.pool(self.relu(self.conv2(x)))
-        x = x.view(-1, 32 * 54 * 54)
-        x = self.relu(self.fc1(x))
-        x = self.sigmoid(self.fc2(x))
-        return x
-
-# Loading trained model
-model = CNN()
-model.load_state_dict(torch.load('vehicle_cyclist_classifier.pth', map_location='cpu'))
-model.eval()
-
-# Loading YOLOv8 model for object detection
-yolo_model = YOLO('ML model/yolov8n.pt')
-
-# Defining vehicle and cyclist classes as per COCO dataset
-yolo_vehicle_classes = {'car', 'truck', 'bus'}
-yolo_cyclist_classes = {'bicycle', 'motorcycle'}
-
-app = Flask(__name__)
 CORS(app)
 
 @app.route('/predict', methods=['POST'])
