@@ -1,37 +1,17 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
-import { getAnalytics } from 'firebase/analytics';
+app = initializeApp(firebaseConfig);
+auth = getAuth(app);
+db = getFirestore(app);
+storage = getStorage(app);
 
-// Firebase configuration 
-const firebaseConfig = {
-  apiKey: "AIzaSyDlFUFjlY7f_vl7Y-mif6o7yLRFnWpvmrM",
-  authDomain: "roadwise-tms.firebaseapp.com",
-  projectId: "roadwise-tms",
-  storageBucket: "roadwise-tms.firebasestorage.app",
-  messagingSenderId: "212769752315",
-  appId: "1:212769752315:web:70677465ff62ee951bdc5e",
-  measurementId: "G-TQW7B66HGD"
-};
+// Initializing analytics only if measurementId is available
+if (firebaseConfig.measurementId) {
+  analytics = getAnalytics(app);
+}
 
-// Initializing Firebase
-let app, auth, db, storage, analytics;
-
-try {
-  app = initializeApp(firebaseConfig);
-  auth = getAuth(app);
-  db = getFirestore(app);
-  storage = getStorage(app);
-  
-  // Initializing analytics only if measurementId is available
-  if (firebaseConfig.measurementId) {
-    analytics = getAnalytics(app);
-  }
-  
-  console.log('✅ Firebase initialized successfully');
-  console.log('📊 Project ID:', firebaseConfig.projectId);
-  console.log('🔐 Auth Domain:', firebaseConfig.authDomain);
+console.log('✅ Firebase initialized successfully');
+console.log('📊 Project ID:', firebaseConfig.projectId);
+console.log('🔐 Auth Domain:', firebaseConfig.authDomain);
 } catch (error) {
   console.error('❌ Firebase initialization failed:', error);
   throw error;
