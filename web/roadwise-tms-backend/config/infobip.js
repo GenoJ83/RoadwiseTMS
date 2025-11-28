@@ -18,7 +18,7 @@ async function sendSMS(to, message, from = '447491163443') {
         const postData = JSON.stringify({
             "messages": [
                 {
-                    "destinations": [{"to": to}],
+                    "destinations": [{ "to": to }],
                     "from": from,
                     "text": message
                 }
@@ -27,10 +27,10 @@ async function sendSMS(to, message, from = '447491163443') {
 
         const options = {
             method: 'POST',
-            hostname: 'rpzr1p.api.infobip.com',
+            hostname: INFOBIP_CONFIG.hostname,
             path: '/sms/2/text/advanced',
             headers: {
-                'Authorization': 'App 335673a3ed72b450da7efa28c43bb50f-01bb1a8e-1c35-4030-9d89-6529a8c1b441',
+                'Authorization': `App ${process.env.INFOBIP_API_KEY}`,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Content-Length': Buffer.byteLength(postData)
@@ -80,7 +80,7 @@ async function sendTrafficCommand(arduinoPhone, direction, state) {
 // Send emergency alert to multiple numbers
 async function sendEmergencyAlert(phoneNumbers, message) {
     const results = [];
-    
+
     for (const phone of phoneNumbers) {
         try {
             const result = await sendSMS(phone, `🚨 EMERGENCY: ${message}`);
@@ -89,7 +89,7 @@ async function sendEmergencyAlert(phoneNumbers, message) {
             results.push({ phone, success: false, error: error.message });
         }
     }
-    
+
     return results;
 }
 
